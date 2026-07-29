@@ -3,6 +3,7 @@ listingId,Text,Yes,buck-001,Stable internal listing ID
 slug,Text,Yes,cedar-ridge-archer,Unique URL-safe value
 buckName,Text,Yes,Cedar Ridge Archer,Public listing title
 registrationNumber,Text,Recommended,AB123456,Registry or association number
+abgaLink,Text,No,https://abga.icompete.net/Studbook/Animals/Details/3770309,Public ABGA details page when available
 breed,Text,Yes,Boer,Goat breed
 association,Text,No,ABGA,Registry or breed association
 status,Choice,Yes,active,Allowed values: active inactive
