@@ -1,0 +1,245 @@
+GOAT GENETICS CATALOG
+Collaborator Brief
+
+Date: July 28, 2026
+Project Path: C:\Users\lmc4m\OneDrive\Documents\Goat Semen Catalog
+
+1. Project Summary
+
+This project is a searchable goat genetics catalog website. The catalog is intended to display active buck listings for semen/genetics marketing and discovery. The current focus is on organizing listing data cleanly, making the public catalog easy to search, and keeping the data model simple enough for manual data entry in Grist.
+
+At this stage, the project is intentionally being simplified. The team decided to reduce complexity and focus the development data model on two main categories:
+
+- Listings
+- Lineage
+
+Other information such as seller contact details, long-form buck descriptions, and media/image management are being handled by the human side for now and are not part of the active development schema.
+
+
+2. Current Website Purpose
+
+The public website currently serves as:
+
+- a searchable public genetics catalog
+- a place to browse active listings
+- a way to view individual listing pages
+
+The public catalog should only display listings marked as active.
+
+The catalog supports searching by:
+
+- buck name
+- registration number
+- sire
+- dam
+- color
+
+The catalog also supports filtering by:
+
+- breed
+- association
+- enoblement
+- FullBlood
+
+
+3. Current Project Direction
+
+The project originally started with a broader and more cluttered schema. Over time, the data model became too wide for practical Grist data entry, especially because entering data required too much horizontal scrolling.
+
+To fix that, the project is being refactored toward a narrower structure. The main goal is to keep the Grist data manageable while still supporting the public catalog and future growth.
+
+The current structure is now much closer to scaffold than spaghetti, but it is still an active work in progress.
+
+
+4. Current Data Structure
+
+There are two active CSV data files in the project:
+
+GRIST_LISTINGS.csv
+This file stores listing-level data.
+
+Fields:
+- listingId
+- slug
+- buckName
+- registrationNumber
+- breed
+- association
+- status
+- sortOrder
+- createdAt
+- updatedAt
+
+GRIST_LINEAGE.csv
+This file stores lineage-level data.
+
+Fields:
+- listingId
+- color
+- fullBlood
+- enoblement
+- sire
+- dam
+
+The listingId field is the key that connects the two files.
+
+There are also schema reference files:
+
+- GRIST_SCHEMA_LISTINGS.csv
+- GRIST_SCHEMA_LINEAGE.csv
+
+
+5. Important Business Rules
+
+- Only active listings should appear in the public catalog.
+- The public catalog should use one source of truth.
+- The current live source of truth is the two-file structure:
+  - GRIST_LISTINGS.csv
+  - GRIST_LINEAGE.csv
+- Temporary import files or side files should not drive the public site directly.
+- Seller contact data is not in the active development schema right now.
+- Media/image management is not in the active development schema right now.
+- Long-form descriptions are not in the active development schema right now.
+
+
+6. Breed and Association Direction
+
+The website is not only for Boer goats long-term. It is expected to support dairy breeds and potentially multiple breed associations.
+
+Current reality:
+
+- Boer listings can use ABGA as the association
+- Dairy breed associations are not fully defined yet
+- Some association information is still missing and will be filled in later
+
+Because of that, the association field currently exists but may be blank for some non-Boer listings.
+
+
+7. ABGA / Scraping Context
+
+There has been exploratory work around using ABGA public animal pages to help seed Boer listing data. The idea is to use public registration information to help populate records. However, this is not meant to become a bloated permanent ABGA data warehouse inside the project.
+
+Current philosophy:
+
+- use ABGA as a helper for Boer data when useful
+- avoid stressing the ABGA website unnecessarily
+- do not store large amounts of extraneous ABGA-specific metadata unless it directly supports the listing
+- dairy breeds will be entered manually for now
+
+At the moment, ABGA-specific extra tables were intentionally cut back out of the active schema.
+
+
+8. Current Technical State
+
+Framework:
+- Next.js
+- React
+- TypeScript
+
+Important notes:
+
+- The active working folder is:
+  C:\Users\lmc4m\OneDrive\Documents\Goat Semen Catalog
+
+- There used to be a second copy of the project in another folder. That old folder has been deleted and should no longer be treated as active.
+
+- The project previously ran into confusion because edits and dev servers were not always pointed at the same folder. That issue should now be considered resolved, as long as everyone works from the OneDrive path above.
+
+- The Next.js config was updated to support the current TypeScript version by enabling:
+  experimental.useTypeScriptCli = true
+
+
+9. Public UI Status
+
+The public catalog and listing pages are actively being simplified.
+
+Recent cleanup direction includes:
+
+- removing legacy dependence on show correct
+- removing teat structure from the active development flow
+- removing media, gallery, and notes from the active schema
+- simplifying cards and detail pages around listing + lineage
+- supporting association as a future-proof field
+
+The public catalog should reflect all active listings from the current data files.
+
+
+10. What a New Collaborator Should Understand First
+
+If you are joining this project, the most important thing to understand is that the team is intentionally reducing complexity.
+
+This is not a project where the right move is to add more systems right now.
+
+The priority is:
+
+1. Keep the data organized and easy to enter.
+2. Keep the public catalog stable and accurate.
+3. Avoid multiple competing sources of truth.
+4. Build only what is clearly needed for the next phase.
+
+Please assume simplicity is preferred unless a more complex structure is clearly necessary.
+
+
+11. Current Opportunities for Contribution
+
+A collaborator can help most by supporting one or more of the following:
+
+- verifying that all active listings appear correctly in the public catalog
+- helping standardize breed and association data
+- helping define dairy breed/association coverage
+- helping clean and normalize lineage text
+- helping review slug consistency
+- helping check that Filters match real business needs
+- helping prepare Grist for easier data entry workflows
+
+
+12. Things to Avoid
+
+Please avoid reintroducing the old wide-schema clutter unless there is a strong reason.
+
+That includes avoiding unnecessary active schema expansion for:
+
+- seller contacts
+- long-form descriptions
+- image/media storage
+- ABGA-specific metadata that is not needed for the public listing
+- temporary import files acting like live production data
+
+
+13. Suggested Mental Model
+
+Think of this project as:
+
+- a public-facing genetics catalog
+- powered by a simple listings table
+- connected to a simple lineage table
+- with room to grow into multiple breeds and associations later
+
+The immediate job is not to build every future system now. The immediate job is to make the core catalog organized, stable, and easy to maintain.
+
+
+14. Detailed Description of the Project
+
+This project is a practical catalog website for goat genetics listings, starting with bucks and semen/genetics marketing. It is designed to help users browse available genetics, search for specific animals, and review essential lineage information without having to navigate a cluttered or overly technical database.
+
+The project sits at the intersection of livestock recordkeeping, public catalog presentation, and internal data organization. One of the central challenges has been balancing useful genetic information with a data-entry workflow that real humans can actually maintain. A major lesson from development so far is that a single giant table becomes difficult to work with very quickly, especially when too many fields are added before the team is ready to maintain them.
+
+Because of that, the current version of the project has been intentionally narrowed. Instead of trying to manage every possible field in one place, the data is now separated into two simpler layers: listing data and lineage data. Listing data answers the question, "What is this public listing?" Lineage data answers the question, "What genetic background and classification details belong to it?" That split makes the system easier to understand, easier to edit, and easier to scale carefully.
+
+The long-term vision is broader than Boer goats alone. The site is expected to expand into dairy breeds and additional associations, but the project is not forcing that full complexity into the schema yet. Instead, it is preparing for that future with the addition of a breed field and an association field, while allowing some values to remain incomplete until the right information is gathered.
+
+In short, this project is a searchable, public-facing goat genetics catalog with a deliberately simplified internal structure. The most important technical and organizational priority right now is to keep the project clean, stable, and maintainable while the data model continues to mature.
+
+
+15. Recommended Working Rules for Collaborators
+
+- Work only in the active project folder:
+  C:\Users\lmc4m\OneDrive\Documents\Goat Semen Catalog
+- Treat GRIST_LISTINGS.csv and GRIST_LINEAGE.csv as the live data model
+- Do not create new live data sources without discussion
+- Prefer schema clarity over short-term convenience
+- Prefer simple, explicit logic over clever hidden automation
+- When in doubt, protect data-entry usability
+
+
+End of Brief
