@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BuckCard } from "@/components/catalog/buck-card";
 import { CatalogFilters } from "@/components/catalog/catalog-filters";
+import { AccountLink } from "@/features/auth/components/account-link";
 import { getCatalogOptions, getFilteredBucks } from "@/lib/bucks";
 import type { CatalogSearchParams } from "@/lib/types";
 
@@ -32,12 +33,15 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
               simplify the catalog around listings and lineage.
             </p>
           </div>
-          <Link
-            href="/catalog"
-            className="inline-flex items-center justify-center rounded-full border border-[#17352f]/20 px-5 py-3 text-sm font-semibold text-[#17352f] hover:border-[#17352f] hover:bg-[#17352f] hover:text-[#f4efe4]"
-          >
-            Reset Search
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <AccountLink />
+            <Link
+              href="/catalog"
+              className="inline-flex items-center justify-center rounded-full border border-[#17352f]/20 px-5 py-3 text-sm font-semibold text-[#17352f] hover:border-[#17352f] hover:bg-[#17352f] hover:text-[#f4efe4]"
+            >
+              Reset Search
+            </Link>
+          </div>
         </div>
       </section>
 
