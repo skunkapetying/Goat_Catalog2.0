@@ -1,23 +1,40 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { parseCsv } from "@/lib/csv";
+import { resolveListingMedia } from "@/lib/media";
 import type { BuckRecord, CatalogOptions, CatalogSearchParams } from "@/lib/types";
 
 const LISTINGS_CSV_PATH = path.join(process.cwd(), "GRIST_LISTINGS.csv");
 const LINEAGE_CSV_PATH = path.join(process.cwd(), "GRIST_LINEAGE.csv");
+const MEDIA_CSV_PATH = path.join(process.cwd(), "GRIST_MEDIA.csv");
 
 export async function getAllBucks(): Promise<BuckRecord[]> {
-  const [listingsRaw, lineageRaw] = await Promise.all([
+  const [listingsRaw, lineageRaw, mediaRaw] = await Promise.all([
     readFile(LISTINGS_CSV_PATH, "utf8"),
-    readFile(LINEAGE_CSV_PATH, "utf8")
+    readFile(LINEAGE_CSV_PATH, "utf8"),
+    readOptionalCsv(MEDIA_CSV_PATH)
   ]);
   const listingRows = parseCsv(listingsRaw);
   const lineageRows = parseCsv(lineageRaw);
+  const mediaRows = parseCsv(mediaRaw);
   const lineageByListingId = new Map(
     lineageRows.map((row) => [row.listingId, row] as const)
   );
+  const mediaByListingId = new Map(
+    mediaRows.map((row) => [row.listingId, row] as const)
+  );
 
-  return listingRows
-    .map((row) => mapRowToBuck(row, lineageByListingId.get(row.listingId)))
+  const bucks = await Promise.all(
+    listingRows.map((row) =>
+      mapRowToBuck(
+        row,
+        lineageByListingId.get(row.listingId),
+        mediaByListingId.get(row.listingId)
+      )
+    )
+  );
+
+  return bucks
     .sort((a, b) => {
       const sortOrderDelta = (a.sortOrder ?? Number.MAX_SAFE_INTEGER) - (b.sortOrder ?? Number.MAX_SAFE_INTEGER);
       if (sortOrderDelta !== 0) {
@@ -45,6 +62,7 @@ export async function getFilteredBucks(
       [
         buck.buckName,
         buck.registrationNumber,
+        buck.description,
         buck.lineage.color,
         buck.lineage.sire,
         buck.lineage.dam
@@ -88,14 +106,17 @@ export async function getCatalogOptions(): Promise<CatalogOptions> {
 
 function mapRowToBuck(
   listingRow: Record<string, string>,
-  lineageRow?: Record<string, string>
-): BuckRecord {
+  lineageRow?: Record<string, string>,
+  mediaRow?: Record<string, string>
+): Promise<BuckRecord> {
   const breed = listingRow.breed;
-  return {
+  return resolveListingMedia(listingRow.slug, mediaRow).then((media) => ({
     id: listingRow.listingId,
     slug: listingRow.slug,
     buckName: listingRow.buckName,
     registrationNumber: listingRow.registrationNumber,
+    abgaLink: listingRow.abgaLink || undefined,
+    description: listingRow.description || undefined,
     breed,
     association: listingRow.association || inferAssociation(breed),
     status: normalizeStatus(listingRow.status),
@@ -106,10 +127,11 @@ function mapRowToBuck(
       sire: lineageRow?.sire || undefined,
       dam: lineageRow?.dam || undefined
     },
+    media,
     sortOrder: listingRow.sortOrder ? Number(listingRow.sortOrder) : undefined,
     createdAt: listingRow.createdAt || undefined,
     updatedAt: listingRow.updatedAt || undefined
-  };
+  }));
 }
 
 function inferAssociation(breed?: string): string | undefined {
@@ -134,57 +156,10 @@ function normalize(value?: string): string {
   return (value ?? "").trim().toLowerCase();
 }
 
-function parseCsv(input: string): Array<Record<string, string>> {
-  const rows: string[][] = [];
-  let currentField = "";
-  let currentRow: string[] = [];
-  let inQuotes = false;
-
-  for (let index = 0; index < input.length; index += 1) {
-    const char = input[index];
-    const nextChar = input[index + 1];
-
-    if (char === "\"") {
-      if (inQuotes && nextChar === "\"") {
-        currentField += "\"";
-        index += 1;
-      } else {
-        inQuotes = !inQuotes;
-      }
-      continue;
-    }
-
-    if (char === "," && !inQuotes) {
-      currentRow.push(currentField);
-      currentField = "";
-      continue;
-    }
-
-    if ((char === "\n" || char === "\r") && !inQuotes) {
-      if (char === "\r" && nextChar === "\n") {
-        index += 1;
-      }
-      currentRow.push(currentField);
-      rows.push(currentRow);
-      currentField = "";
-      currentRow = [];
-      continue;
-    }
-
-    currentField += char;
+async function readOptionalCsv(filePath: string): Promise<string> {
+  try {
+    return await readFile(filePath, "utf8");
+  } catch {
+    return "";
   }
-
-  if (currentField || currentRow.length > 0) {
-    currentRow.push(currentField);
-    rows.push(currentRow);
-  }
-
-  const [headers, ...dataRows] = rows.filter((row) => row.some((field) => field.length > 0));
-
-  return dataRows.map((row) =>
-    headers.reduce<Record<string, string>>((record, header, index) => {
-      record[header] = row[index] ?? "";
-      return record;
-    }, {})
-  );
 }

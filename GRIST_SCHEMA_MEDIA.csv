@@ -1,0 +1,8 @@
+"field","type","required","example","notes"
+"listingId","Reference","Yes","buck-001","Matches Listings.listingId"
+"profileImage","Text","No","/listings/cedar-ridge-archer/cedar-ridge-archer_profile.jpg","Main buck photo shown on the listing page"
+"pedigreeImage","Text","No","/listings/cedar-ridge-archer/cedar-ridge-archer_pedigree.jpg","Screenshot or export of the pedigree"
+"catalogPagePdf","Text","No","/listings/cedar-ridge-archer/catalog-page-01.pdf","Original catalog page PDF for download or archive"
+"catalogPagePreviewImage","Text","No","/listings/cedar-ridge-archer/catalog-page-01.jpg","Display-friendly image preview of the catalog PDF page"
+"galleryImage","Text","No","/listings/cedar-ridge-archer/cedar-ridge-archer_gallery.jpg","Optional extra gallery image"
+"updatedAt","DateTime","No","2026-07-29T12:00:00Z","When the media row was last updated"

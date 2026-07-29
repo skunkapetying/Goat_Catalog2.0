@@ -6,15 +6,26 @@ export type LineageRecord = {
   dam?: string;
 };
 
+export type MediaRecord = {
+  profileImage?: string;
+  pedigreeImage?: string;
+  catalogPagePdf?: string;
+  catalogPagePreviewImage?: string;
+  galleryImage?: string;
+};
+
 export type BuckRecord = {
   id: string;
   slug: string;
   buckName: string;
   registrationNumber: string;
+  abgaLink?: string;
+  description?: string;
   breed: string;
   association?: string;
   status: "active" | "inactive";
   lineage: LineageRecord;
+  media: MediaRecord;
   sortOrder?: number;
   createdAt?: string;
   updatedAt?: string;
