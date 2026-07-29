@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background-image:
+    radial-gradient(circle at top left, rgba(209, 169, 106, 0.2), transparent 32%),
+    linear-gradient(180deg, rgba(244, 239, 228, 0.98), rgba(244, 239, 228, 1));
+  min-height: 100vh;
+  background-color: #f4efe4;
+  color: #17352f;
+  font-family: "Segoe UI", sans-serif;
+}
+
+a {
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+
+input,
+select {
+  font-size: 1rem;
+}

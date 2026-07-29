@@ -1,0 +1,11 @@
+field,type,required,example,notes
+listingId,Text,Yes,buck-001,Stable internal listing ID
+slug,Text,Yes,cedar-ridge-archer,Unique URL-safe value
+buckName,Text,Yes,Cedar Ridge Archer,Public listing title
+registrationNumber,Text,Recommended,AB123456,Registry or association number
+breed,Text,Yes,Boer,Goat breed
+association,Text,No,ABGA,Registry or breed association
+status,Choice,Yes,active,Allowed values: active inactive
+sortOrder,Numeric,No,10,Manual catalog ordering
+createdAt,DateTime,No,2026-07-26T09:00:00Z,Listing creation timestamp
+updatedAt,DateTime,No,2026-07-26T09:00:00Z,Listing update timestamp

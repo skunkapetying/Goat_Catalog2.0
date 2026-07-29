@@ -1,0 +1,13 @@
+listingId,slug,buckName,registrationNumber,breed,association,status,sortOrder,createdAt,updatedAt
+buck-001,cedar-ridge-archer,Cedar Ridge Archer,AB123456,Nubian,,active,10,2026-07-26T09:00:00Z,2026-07-26T09:00:00Z
+buck-002,silver-creek-atlas,Silver Creek Atlas,CD987654,Boer,ABGA,active,20,2026-07-26T09:05:00Z,2026-07-26T09:05:00Z
+buck-003,oak-hollow-magnus,Oak Hollow Magnus,EF246810,Alpine,,active,30,2026-07-26T09:10:00Z,2026-07-26T09:10:00Z
+buck-004,blue-creek-ranger,Blue Creek Ranger,GH135791,Lamancha,,active,40,2026-07-26T09:15:00Z,2026-07-26T09:15:00Z
+buck-005,willow-bend-legend,Willow Bend Legend,IJ112233,Oberhasli,,active,50,2026-07-26T09:20:00Z,2026-07-26T09:20:00Z
+buck-019,2ccb-bbwf-4jj-back-to-the-future,2CCB BBWF 4JJ BACK TO THE FUTURE,10901184,Boer,ABGA,active,190,2026-07-28T12:00:00Z,2026-07-28T12:00:00Z
+buck-020,ashs-ay-carumba,ASHS AY CARUMBA,10715568,Boer,ABGA,active,200,2026-07-28T12:05:00Z,2026-07-28T12:05:00Z
+buck-021,jad-srb-rugers-evolution,JAD SRB RUGER'S EVOLUTION,10777431,Boer,ABGA,active,210,2026-07-28T12:10:00Z,2026-07-28T12:10:00Z
+buck-022,hsfg-hillside-hitmans-dark-mark,HSFG HILLSIDE HITMANS DARK MARK,10561078,Boer,ABGA,active,220,2026-07-28T12:15:00Z,2026-07-28T12:15:00Z
+buck-023,c-s-b-ruger-reloaded,C S B RUGER RELOADED,10405280,Boer,ABGA,active,230,2026-07-28T12:20:00Z,2026-07-28T12:20:00Z
+buck-024,jrb3-coppers-domino,JRB3 COPPER'S DOMINO,10586111,Boer,ABGA,active,240,2026-07-28T12:25:00Z,2026-07-28T12:25:00Z
+buck-025,s-g-r-polars-paint-the-town,S G R POLAR'S PAINT THE TOWN,10495896,Boer,ABGA,active,250,2026-07-28T12:30:00Z,2026-07-28T12:30:00Z

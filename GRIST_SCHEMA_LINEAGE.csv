@@ -1,0 +1,7 @@
+field,type,required,example,notes
+listingId,Reference,Yes,buck-001,Matches Listings.listingId
+color,Text,No,BLACK DAPPLE,Searchable color field
+fullBlood,Text,No,Full Blooded,Examples: Full Blooded Percentage
+enoblement,Text,No,*ENNOBLED*,Flexible text for points or enoblement
+sire,Text,No,Hillside Titan,Sire name and optional registration
+dam,Text,No,Maple Grove Rose,Dam name and optional registration
