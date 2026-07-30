@@ -150,8 +150,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             Submit a new listing
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-[#17352f]/80">
-            Submit a buck name, registration number, and seller email to create an
-            inactive listing record. When the registration number matches the ABGA
+            Submit a buck name, registration number, and seller email to create a
+            draft listing record. When the registration number matches the ABGA
             studbook, the intake saves the animal details link for later review.
           </p>
 
@@ -165,7 +165,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </div>
 
         <section className="rounded-[2rem] border border-[#17352f]/10 bg-white px-6 py-8 shadow-[0_18px_40px_rgba(23,53,47,0.12)] lg:px-8">
-          <h3 className="font-serif text-3xl text-[#17352f]">Create Inactive Listing</h3>
+          <h3 className="font-serif text-3xl text-[#17352f]">Create Draft Listing</h3>
           <form action={submitListingAction} className="mt-6 space-y-5">
             <label className="block">
               <span className="text-sm font-semibold text-[#17352f]">Buck Name</span>
@@ -212,8 +212,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           </form>
 
           <div className="mt-6 rounded-[1.5rem] bg-[#f4efe4]/80 px-5 py-4 text-sm leading-6 text-[#17352f]/80">
-            Saved submissions stay inactive, so they do not appear in the public catalog
-            until you or a collaborator finishes the rest of the record.
+            Saved submissions stay off the public catalog until you or a collaborator
+            finishes the rest of the record.
           </div>
         </section>
       </section>

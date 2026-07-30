@@ -3,6 +3,8 @@ node_modules/
 out/
 dist/
 .turbo/
+tmp/
+manual review/
 
 *.log
 *.zip
